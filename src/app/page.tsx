@@ -128,14 +128,6 @@ export default function Home() {
             <CardContent>
               {/* Use custom rendering for headings */}
               <ReactMarkdown
-                components={{
-                  h1: ({node, children}) => <MarkdownHeading level={1} children={children} />,
-                  h2: ({node, children}) => <MarkdownHeading level={2} children={children} />,
-                  h3: ({node, children}) => <MarkdownHeading level={3} children={children} />,
-                  h4: ({node, children}) => <MarkdownHeading level={4} children={children} />,
-                  h5: ({node, children}) => <MarkdownHeading level={5} children={children} />,
-                  h6: ({node, children}) => <MarkdownHeading level={6} children={children} />,
-                }}
               >
                 {note.summary}
               </ReactMarkdown>
@@ -143,14 +135,6 @@ export default function Home() {
               {showOriginal[index] && (
                 <div className="mt-2 pt-2 border-t-2 border-dashed">
                   <ReactMarkdown
-                     components={{
-                      h1: ({node, children}) => <MarkdownHeading level={1} children={children} />,
-                      h2: ({node, children}) => <MarkdownHeading level={2} children={children} />,
-                      h3: ({node, children}) => <MarkdownHeading level={3} children={children} />,
-                      h4: ({node, children}) => <MarkdownHeading level={4} children={children} />,
-                      h5: ({node, children}) => <MarkdownHeading level={5} children={children} />,
-                      h6: ({node, children}) => <MarkdownHeading level={6} children={children} />,
-                    }}
                   >{note.originalNote}</ReactMarkdown>
                 </div>
               )}
