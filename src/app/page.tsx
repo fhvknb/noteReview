@@ -8,6 +8,7 @@ import {Input} from '@/components/ui/input';
 import {refineSummary} from '@/ai/flows/refine-summary';
 import {useToast} from '@/hooks/use-toast';
 import {Icons} from '@/components/icons';
+import ReactMarkdown from 'react-markdown';
 
 const itemsPerPage = 5;
 
@@ -122,7 +123,7 @@ export default function Home() {
               {note.summary}
               {showOriginal[index] && (
                 <div className="mt-2 pt-2 border-t-2 border-dashed">
-                  Original Note: {note.originalNote}
+                  <ReactMarkdown>{note.originalNote}</ReactMarkdown>
                 </div>
               )}
             </CardContent>
