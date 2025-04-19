@@ -1,5 +1,5 @@
 # Use the official Node.js runtime as the base image
-FROM node:20-alpine
+FROM node:20-alpine as builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,14 +13,16 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Create and seed the database (adjust as needed)
-# For example, if you have a SQL script:
-# COPY init.sql /docker-entrypoint-initdb.d/
-# Or run commands directly:
-# RUN npx prisma migrate dev --name initial_migration && npx prisma db seed
+RUN npm run build
 
-# Expose the port the app runs on
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/package.json /app/package-lock.json ./
+RUN npm install --only=production
+# COPY --from=builder /app/node_modules  ./node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
 EXPOSE 3000
-
-# Command to start the application
 CMD ["npm", "start"]
+
