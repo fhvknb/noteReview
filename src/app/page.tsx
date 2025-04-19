@@ -120,7 +120,10 @@ export default function Home() {
               <CardDescription>Category: {note.category}</CardDescription>
             </CardHeader>
             <CardContent>
+              <ReactMarkdown>
               {note.summary}
+              </ReactMarkdown>
+
               {showOriginal[index] && (
                 <div className="mt-2 pt-2 border-t-2 border-dashed">
                   <ReactMarkdown>{note.originalNote}</ReactMarkdown>

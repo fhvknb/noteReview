@@ -27,8 +27,10 @@ export async function getNotes(category?: string): Promise<Note[]> {
   const stubbedNotes: Note[] = [
     {
       category: 'Meeting',
-      originalNote: 'Discussed project timelines and resource allocation.',
-      summary: 'Project timeline and resource discussion summary.'
+      originalNote: `##2234 ##242 Discussed project timelines and resource allocation.`,
+      summary: `
+      ##113 Project timeline and resource discussion summary.
+      `
     },
     {
       category: 'Research',
@@ -44,3 +46,4 @@ export async function getNotes(category?: string): Promise<Note[]> {
   
   return stubbedNotes;
 }
+
