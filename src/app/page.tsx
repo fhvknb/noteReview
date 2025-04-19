@@ -1,4 +1,3 @@
-
 'use client';
 
 import {useState, useEffect} from 'react';
@@ -131,9 +130,6 @@ export default function Home() {
               <Button variant="outline" size="sm" onClick={() => toggleOriginalNote(index)}>
                 {showOriginal[index] ? 'Hide Original' : 'Show Original'}
               </Button>
-              <Button size="sm" onClick={() => handleRefineSummary(index)}>
-                Refine Summary
-              </Button>
             </CardFooter>
           </Card>
         ))}
@@ -158,4 +154,3 @@ export default function Home() {
     </div>
   );
 }
-
