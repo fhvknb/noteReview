@@ -26,6 +26,7 @@ export default function Home() {
   const [showOriginal, setShowOriginal] = useState<{[key: string]: boolean}>({});
   const [loading, setLoading] = useState<boolean>(true);
   const {toast} = useToast();
+  const [categoryTags, setCategoryTags] = useState<string[]>([]);
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -46,6 +47,16 @@ export default function Home() {
 
     loadNotes();
   }, [toast]);
+
+  useEffect(() => {
+    // Extract category tags from notes
+    const tags = new Set<string>();
+    notes.forEach(note => {
+      const firstCategoryWord = note.category.split('/')[0] || '';
+      tags.add(firstCategoryWord);
+    });
+    setCategoryTags(Array.from(tags));
+  }, [notes]);
 
   useEffect(() => {
     // Apply category filter
@@ -110,6 +121,19 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4">
       <div className="mb-4">
+      <div>
+          {categoryTags.map(tag => (
+            <Button
+              key={tag}
+              variant="outline"
+              size="sm"
+              className="mr-2 mb-2"
+              onClick={() => setCategoryFilter(tag)}
+            >
+              {tag}
+            </Button>
+          ))}
+        </div>
         <Input
           type="text"
           placeholder="Filter by category"
@@ -174,5 +198,3 @@ export default function Home() {
     </div>
   );
 }
-
-
