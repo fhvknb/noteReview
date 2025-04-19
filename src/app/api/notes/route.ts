@@ -19,3 +19,44 @@ export async function GET() {
   }
 }
 
+export async function POST(request: Request) {
+  try {
+    await initDatabase();
+    const { category, originalNote, summary } = await request.json();
+
+    // Validate the data
+    if (!category || !originalNote || !summary) {
+      return new NextResponse(JSON.stringify({ message: "Missing required fields." }), {
+        status: 400,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+    }
+
+    // Insert the new note into the database
+    const insertQuery = `
+      INSERT INTO notes (category, originalNote, summary)
+      VALUES (?, ?, ?)
+    `;
+    const insertValues = [category, originalNote, summary];
+
+    await query(insertQuery, insertValues);
+
+    return new NextResponse(JSON.stringify({ message: "Note saved successfully." }), {
+      status: 201,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (error) {
+    console.error("Failed to save note:", error);
+    return new NextResponse(JSON.stringify({ message: "Failed to save note." }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
+}
+

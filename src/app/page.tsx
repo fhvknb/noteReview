@@ -108,7 +108,7 @@ export default function Home() {
 
       <div className="grid gap-4">
         {paginatedNotes.map((note, index) => (
-          <Card key={index} className="bg-secondary">
+          <Card key={note.id} className="bg-secondary">
             <CardHeader>
               <CardTitle>Note {index + 1 + (currentPage - 1) * itemsPerPage}</CardTitle>
               <CardDescription>
@@ -138,9 +138,6 @@ export default function Home() {
               <Button variant="outline" size="sm" onClick={() => toggleOriginalNote(index)}>
                 {showOriginal[index] ? 'Hide Original' : 'Show Original'}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => console.log('Start note', index)}>
-                Start
-              </Button>
             </CardFooter>
           </Card>
         ))}
@@ -165,4 +162,3 @@ export default function Home() {
     </div>
   );
 }
-
