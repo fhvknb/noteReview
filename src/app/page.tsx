@@ -123,7 +123,14 @@ export default function Home() {
           <Card key={index} className="bg-secondary">
             <CardHeader>
               <CardTitle>Note {index + 1 + (currentPage - 1) * itemsPerPage}</CardTitle>
-              <CardDescription>Category: {note.category}</CardDescription>
+              <CardDescription>
+                {note.category.split('/').map((segment, index, array) => (
+                  <span key={index}>
+                    {segment}
+                    {index < array.length - 1 && ' / '}
+                  </span>
+                ))}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               {/* Use custom rendering for headings */}
@@ -167,4 +174,5 @@ export default function Home() {
     </div>
   );
 }
+
 
