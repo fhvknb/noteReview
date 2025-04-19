@@ -66,10 +66,10 @@ export async function POST(request: Request) {
 
     // Insert the new note into the database
     const insertQuery = `
-      INSERT INTO notes (category, title, originalNote, summary)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO notes (id, category, title, originalNote, summary)
+      VALUES (?, ?, ?, ?, ?)
     `;
-    const insertValues = [category, title, originalNote, summary];
+    const insertValues = [id, category, title, originalNote, summary];
 
     await query(insertQuery, insertValues);
 
