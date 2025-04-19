@@ -6,6 +6,7 @@ export interface Note {
    * The category of the note.
    */
   id: number;
+  title: string;
   category: string;
   /**
    * The original content of the note.
@@ -22,8 +23,10 @@ export interface Note {
  * @param category Optional category to filter notes by.
  * @returns A promise that resolves to an array of Note objects.
  */
+
 export async function getNotes(category?: string): Promise<Note[]> {
-  const res = await fetch(process.env.BASE_URL + '/api/notes');
+
+  const res = await fetch('/api/notes');
   return res.json() as Promise<Note[]>;
 }
 

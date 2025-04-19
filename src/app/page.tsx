@@ -11,11 +11,6 @@ import ReactMarkdown from 'react-markdown';
 
 const itemsPerPage = 5;
 
-// Custom component for rendering markdown headings
-const MarkdownHeading = ({level, children}: { level: number, children: React.ReactNode }) => {
-  const HeadingTag = `h${level}` as keyof React.ReactHTML;
-  return <HeadingTag>{children}</HeadingTag>;
-};
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -110,7 +105,7 @@ export default function Home() {
         {paginatedNotes.map((note, index) => (
           <Card key={note.id} className="bg-secondary">
             <CardHeader>
-              <CardTitle>Note {index + 1 + (currentPage - 1) * itemsPerPage}</CardTitle>
+              <CardTitle>{note.title}</CardTitle>
               <CardDescription>
                 {note.category.split('/').map((segment, index, array) => (
                   <span key={index}>
