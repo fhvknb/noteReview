@@ -3,9 +3,8 @@
 import {useState, useEffect} from 'react';
 import {Note, getNotes} from '@/services/note-service';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
-import {refineSummary} from '@/ai/flows/refine-summary';
 import {useToast} from '@/hooks/use-toast';
 import {Icons} from '@/components/icons';
 import ReactMarkdown from 'react-markdown';
@@ -78,35 +77,6 @@ export default function Home() {
       ...prevShowOriginal,
       [index]: !prevShowOriginal[index],
     }));
-  };
-
-  const handleRefineSummary = async (index: number) => {
-    const note = paginatedNotes[index];
-    if (!note) return;
-
-    try {
-      const result = await refineSummary({
-        originalNote: note.originalNote,
-        currentSummary: note.summary,
-      });
-
-      const updatedNotes = notes.map(n =>
-        n.originalNote === note.originalNote ? {...n, summary: result.refinedSummary} : n
-      );
-      setNotes(updatedNotes);
-
-      toast({
-        title: 'Summary Refined',
-        description: 'The note summary has been successfully refined.',
-      });
-    } catch (error) {
-      console.error('Error refining summary:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to refine the summary.',
-        variant: 'destructive',
-      });
-    }
   };
 
   if (loading) {
