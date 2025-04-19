@@ -1,40 +1,26 @@
-# Use the official Node.js 20 image as the base image
-FROM node:20-alpine AS base
+# Use the official Node.js runtime as the base image
+FROM node:20-alpine
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the working directory
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install the dependencies
+# Install dependencies
 RUN npm install
 
-# Copy the Next.js application files to the working directory
+# Copy the rest of the application code
 COPY . .
 
-# Build the Next.js application for production
-RUN npm run build
+# Create and seed the database (adjust as needed)
+# For example, if you have a SQL script:
+# COPY init.sql /docker-entrypoint-initdb.d/
+# Or run commands directly:
+# RUN npx prisma migrate dev --name initial_migration && npx prisma db seed
 
-# Use the official Node.js 20 image as the base image for the production environment
-FROM node:20-alpine AS production
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Set the working directory
-WORKDIR /app
-
-# Copy the package.json and package-lock.json files from the base image to the working directory
-COPY package*.json ./
-
-# Install only the production dependencies
-RUN npm install --omit=dev
-
-# Copy the Next.js application files from the base image to the working directory
-COPY --from=base /app/.next ./.next
-COPY --from=base /app/public ./public
-COPY --from=base /app/next.config.js ./next.config.js
-
-# Expose the port that the Next.js application will listen on
-EXPOSE 9002
-
-# Start the Next.js application in production mode
+# Command to start the application
 CMD ["npm", "start"]
