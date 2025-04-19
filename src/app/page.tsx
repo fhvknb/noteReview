@@ -143,9 +143,12 @@ export default function Home() {
                 </div>
               )}
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-start space-x-2">
               <Button variant="outline" size="sm" onClick={() => toggleOriginalNote(index)}>
                 {showOriginal[index] ? 'Hide Original' : 'Show Original'}
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => console.log('Start note', index)}>
+                Start
               </Button>
             </CardFooter>
           </Card>
