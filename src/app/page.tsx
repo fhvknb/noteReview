@@ -103,15 +103,6 @@ export default function Home() {
               {tag}
             </Button>
           ))}
-                      <Button
-              key="start"
-              variant="outline"
-              size="sm"
-              className="mr-2 mb-2"
-              onClick={() => setCategoryFilter('start')}
-            >
-              Start
-            </Button>
         </div>
       </div>
 
@@ -174,3 +165,4 @@ export default function Home() {
     </div>
   );
 }
+
