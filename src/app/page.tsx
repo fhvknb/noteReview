@@ -121,7 +121,7 @@ export default function Home() {
             <CardContent>
               {note.summary}
               {showOriginal[index] && (
-                <div className="mt-2 p-2 border rounded">
+                <div className="mt-2 pt-2 border-t-2 border-dashed">
                   Original Note: {note.originalNote}
                 </div>
               )}
