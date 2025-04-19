@@ -15,7 +15,7 @@ let pool: mysql.Pool;
 async function createPool() {
   if (!pool) {
     pool = mysql.createPool(dbConfig);
-    console.log('MySQL Connection Pool 생성');
+    console.log('MySQL Connection Pool created');
   }
   return pool;
 }
@@ -64,7 +64,7 @@ export async function initDatabase() {
         )
       `;
       await query(createTableQuery);
-      console.log('notes 테이블 생성 완료');
+      console.log('notes table created');
 
       // Optionally, insert some default data
       const insertDefaultDataQuery = `
@@ -75,12 +75,13 @@ export async function initDatabase() {
           ('start/Important', 'Key points for the upcoming presentation.', 'Outline of presentation key points.')
       `;
       await query(insertDefaultDataQuery);
-      console.log('기본 데이터 삽입 완료');
+      console.log('Default data insertion completed');
     } else {
       console.log('notes 테이블이 이미 존재합니다.');
     }
   } catch (error) {
-    console.error('테이블 생성 또는 초기화 중 오류 발생:', error);
+    console.error('Error occurred during table creation or initialization:', error);
     throw error;
   }
 }
+
