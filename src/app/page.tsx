@@ -134,12 +134,6 @@ export default function Home() {
             </Button>
           ))}
         </div>
-        <Input
-          type="text"
-          placeholder="Filter by category"
-          value={categoryFilter}
-          onChange={e => setCategoryFilter(e.target.value)}
-        />
       </div>
 
       <div className="grid gap-4">
@@ -198,3 +192,4 @@ export default function Home() {
     </div>
   );
 }
+
