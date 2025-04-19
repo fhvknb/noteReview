@@ -3,7 +3,7 @@
 import {useState, useEffect} from 'react';
 import {Note, getNotes} from '@/services/note-service';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
 import {refineSummary} from '@/ai/flows/refine-summary';
 import {useToast} from '@/hooks/use-toast';
@@ -133,6 +133,15 @@ export default function Home() {
               {tag}
             </Button>
           ))}
+                      <Button
+              key="start"
+              variant="outline"
+              size="sm"
+              className="mr-2 mb-2"
+              onClick={() => setCategoryFilter('start')}
+            >
+              Start
+            </Button>
         </div>
       </div>
 
@@ -192,4 +201,3 @@ export default function Home() {
     </div>
   );
 }
-

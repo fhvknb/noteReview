@@ -60,6 +60,11 @@ export async function getNotes(category?: string): Promise<Note[]> {
       category: 'Personal/Grocery',
       originalNote: 'Things to buy from the grocery store.',
       summary: 'List of grocery items.'
+    },
+    {
+      category: 'start/Important',
+      originalNote: 'Key points for the upcoming presentation.',
+      summary: 'Outline of presentation key points.'
     }
   ];
 
