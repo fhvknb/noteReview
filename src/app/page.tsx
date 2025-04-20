@@ -1,12 +1,12 @@
 'use client';
 
-import {useState, useEffect} from 'react';
-import {Note, getNotes} from '@/services/note-service';
-import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
-import {Input} from '@/components/ui/input';
-import {useToast} from '@/hooks/use-toast';
-import {Icons} from '@/components/icons';
+import { useState, useEffect, useRef } from 'react';
+import { Note, getNotes } from '@/services/note-service';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { Icons } from '@/components/icons';
 import ReactMarkdown from 'react-markdown';
 
 const itemsPerPage = 5;
@@ -17,10 +17,18 @@ export default function Home() {
   const [filteredNotes, setFilteredNotes] = useState<Note[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showOriginal, setShowOriginal] = useState<{[key: string]: boolean}>({});
+  const [showOriginal, setShowOriginal] = useState<{ [key: string]: boolean }>({});
   const [loading, setLoading] = useState<boolean>(true);
-  const {toast} = useToast();
+  const { toast } = useToast();
   const [categoryTags, setCategoryTags] = useState<string[]>([]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollTop = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  }
 
   useEffect(() => {
     const loadNotes = async () => {
@@ -84,9 +92,9 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4" ref={containerRef}>
       <div className="mb-4">
-      <div>
+        <div>
           {categoryTags.map(tag => (
             <Button
               key={tag}
@@ -142,14 +150,20 @@ export default function Home() {
         <Button
           variant="outline"
           disabled={currentPage === 1}
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          onClick={() => {
+            setCurrentPage(prev => Math.max(prev - 1, 1));
+            handleScrollTop();
+          }}
         >
           Previous
         </Button>
         <Button
           variant="outline"
           disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          onClick={() => {
+            setCurrentPage(prev => Math.min(prev + 1, totalPages));
+            handleScrollTop();
+          }}
         >
           Next
         </Button>
