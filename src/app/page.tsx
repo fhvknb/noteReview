@@ -25,8 +25,9 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleScrollTop = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = 0;
+
+    if (window ) {
+      window.scrollTo(0, 0);
     }
   }
 
@@ -92,7 +93,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4" ref={containerRef}>
+    <div className="container mx-auto p-4"  ref={containerRef}>
       <div className="mb-4">
         <div>
           {categoryTags.map(tag => (
