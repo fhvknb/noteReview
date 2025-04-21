@@ -4,13 +4,13 @@ import { useState, useEffect, useRef } from 'react';
 import { Note, getNotes } from '@/services/note-service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Icons } from '@/components/icons';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 
 const itemsPerPage = 5;
-
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -26,7 +26,7 @@ export default function Home() {
 
   const handleScrollTop = () => {
 
-    if (window ) {
+    if (window) {
       window.scrollTo(0, 0);
     }
   }
@@ -93,7 +93,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4"  ref={containerRef}>
+    <div className="container mx-auto p-4" ref={containerRef}>
       <div className="mb-4">
         <div>
           {categoryTags.map(tag => (
@@ -127,6 +127,7 @@ export default function Home() {
             <CardContent>
               {/* Use custom rendering for headings */}
               <ReactMarkdown
+                remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
               >
                 {note.summary}
               </ReactMarkdown>
@@ -134,7 +135,10 @@ export default function Home() {
               {showOriginal[index] && (
                 <div className="mt-2 pt-2 border-t-2 border-dashed">
                   <ReactMarkdown
-                  >{note.originalNote}</ReactMarkdown>
+                    remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+                  >
+                    {note.originalNote}
+                  </ReactMarkdown>
                 </div>
               )}
             </CardContent>
