@@ -9,8 +9,27 @@ import { useToast } from '@/hooks/use-toast';
 import { Icons } from '@/components/icons';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
+import mermaid from 'mermaid';
+
+import "@/app/assets/css/page.css"
 
 const itemsPerPage = 5;
+
+
+// 初始化 mermaid
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'default',
+  securityLevel: 'loose',
+});
+
+const MermaidComponent = ({ code }: { code: string }) => {
+  useEffect(() => {
+    mermaid.contentLoaded();
+  }, [code]);
+
+  return <div className="mermaid">{code}</div>;
+};
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -124,10 +143,22 @@ export default function Home() {
                 ))}
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              {/* Use custom rendering for headings */}
+            <CardContent className='markdown-content'>
               <ReactMarkdown
-                remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  code: ({ node, className, children, ...props }) => {
+                    const match = /language-(\w+)/.exec(className || '');
+                    if (match && match[1] === 'mermaid') {
+                      return <MermaidComponent code={String(children).replace(/\n$/, '')} />;
+                    }
+                    return (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
               >
                 {note.summary}
               </ReactMarkdown>
@@ -135,7 +166,7 @@ export default function Home() {
               {showOriginal[index] && (
                 <div className="mt-2 pt-2 border-t-2 border-dashed">
                   <ReactMarkdown
-                    remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+                  // remarkPlugins={[remarkGfm, rehypeMermaid]}
                   >
                     {note.originalNote}
                   </ReactMarkdown>

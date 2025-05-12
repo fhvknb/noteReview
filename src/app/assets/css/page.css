@@ -1,0 +1,24 @@
+/* markdown-styles.css */
+.markdown-content table {
+    border-collapse: collapse;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .markdown-content th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .markdown-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .markdown-content tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
