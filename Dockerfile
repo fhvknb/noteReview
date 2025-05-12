@@ -12,7 +12,7 @@ ENV BUILD_DATE=${BUILD_DATE}
 
 RUN npm run build
 
-FROM node:16-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/next.config.js ./
